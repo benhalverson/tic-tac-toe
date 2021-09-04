@@ -4,9 +4,9 @@ interface SquareProps {
 }
 
 const Square = ({ value , onClick  }: SquareProps) => {
-
+  const styles = value ? `squares ${value}` : `squares`
   return (
-    <button className="square" onClick={onClick}>
+    <button className={styles} onClick={onClick}>
       {value}
     </button>
   );

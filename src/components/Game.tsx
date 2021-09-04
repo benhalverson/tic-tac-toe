@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { calculateWinner } from '../helper';
-import Board from './Board';
+import  { useState } from "react";
+import { calculateWinner } from "../helper";
+import Board from "./Board";
 
 const Game = () => {
   const [history, setHistory] = useState([{ squares: Array(9).fill(null) }]);
@@ -23,37 +23,20 @@ const Game = () => {
     setXIsNext(!xIsNext);
   };
 
-  const renderMoves = () => {
-    const moves = history.map((step, move) => {
-     const destination = move ? `Go to move #${move}` : 'Go to game start'; 
-     return (
-       <li key={move}>
-         <button onClick={() => jumpTo(move)}>{destination}</button>
-       </li>
-     )
-    });
-    console.log(moves);
+  const resetGame = () => {
+    setHistory([{ squares: Array(9).fill(null) }]);
+    setStepNumber(0);
+    setXIsNext(true);
   };
-
-  const jumpTo = (step: number) => {
-    setStepNumber(step);
-    setXIsNext((step % 2) === 0);
-  };
-
 
   return (
     <>
-    <h1>Tic-Tac-Toe</h1>
-    <Board squares={history[stepNumber].squares} onClick={handleClick} />
-    <div className="wrapper">
-      <div>
-      <h3>History</h3>
-      {renderMoves()}
-      </div>
-      <h3>{winner ? `Winner ${winner}`: `Next player ${xO}`}</h3>
-    </div>
+      <h1>Tic-Tac-Toe</h1>
+      <h3>{winner ? `Winner ${winner}` : `Next player ${xO}`}</h3>
+      <Board squares={history[stepNumber].squares} onClick={handleClick} />
+      <button className="reset" onClick={resetGame}>Reset</button>
     </>
-  )
-}
+  );
+};
 
 export default Game;
